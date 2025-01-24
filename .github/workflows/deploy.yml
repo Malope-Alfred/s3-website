@@ -30,7 +30,7 @@ jobs:
     
     - name: Bootstrap CDK Environment
       run: |
-        npx cdk bootstrap aws://$AWS_ACCOUNT_ID/af-south-1
+        npx cdk bootstrap
 
     # Deploy CDK Stack
     - name: Deploy CDK Stack
