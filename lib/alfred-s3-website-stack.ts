@@ -5,6 +5,7 @@ import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
 import * as path from 'path';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
+import { AllowedMethods, ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront';
 
 interface ExtendedStackProps extends StackProps {
   readonly stackName: string;
@@ -43,17 +44,18 @@ export class AlfredS3WebsiteStack extends Stack {
         origin: new origins.S3Origin(AlfredS3Bucket, {
           originAccessIdentity: oai, 
         }),
-        // viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        viewerProtocolPolicy: ViewerProtocolPolicy.ALLOW_ALL,
+        allowedMethods: AllowedMethods.ALLOW_GET_HEAD_OPTIONS
       },
-      // defaultRootObject: 'index.html',
-      // errorResponses: [
-      //   {
-      //     httpStatus: 404,
-      //     responseHttpStatus: 404,
-      //     responsePagePath: '/404.html',
-      //     ttl: Duration.minutes(5),
-      //   },
-      // ],
+      defaultRootObject: 'index.html',
+      errorResponses: [
+        {
+          httpStatus: 404,
+          responseHttpStatus: 404,
+          responsePagePath: '/404.html',
+          ttl: Duration.minutes(5),
+        },
+      ],
     });
 
 
