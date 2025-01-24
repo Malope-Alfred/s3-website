@@ -33,9 +33,16 @@ export class AlfredS3WebsiteStack extends Stack {
       retainOnDelete: false,
     });
 
+
+    const oai = new cloudfront.OriginAccessIdentity(this, 'OAI');
+
+    AlfredS3Bucket.grantRead(oai)
+
     const cloudfrontDistribution = new cloudfront.Distribution(this, 'CloudFrontDistribution', {
       defaultBehavior: {
-        origin: new origins.S3Origin(AlfredS3Bucket),
+        origin: new origins.S3Origin(AlfredS3Bucket, {
+          originAccessIdentity: oai, 
+        }),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       },
       defaultRootObject: 'index.html',
