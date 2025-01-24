@@ -43,17 +43,17 @@ export class AlfredS3WebsiteStack extends Stack {
         origin: new origins.S3Origin(AlfredS3Bucket, {
           originAccessIdentity: oai, 
         }),
-        viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        // viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       },
-      defaultRootObject: 'index.html',
-      errorResponses: [
-        {
-          httpStatus: 404,
-          responseHttpStatus: 404,
-          responsePagePath: '/404.html',
-          ttl: Duration.minutes(5),
-        },
-      ],
+      // defaultRootObject: 'index.html',
+      // errorResponses: [
+      //   {
+      //     httpStatus: 404,
+      //     responseHttpStatus: 404,
+      //     responsePagePath: '/404.html',
+      //     ttl: Duration.minutes(5),
+      //   },
+      // ],
     });
 
 
