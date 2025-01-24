@@ -27,6 +27,10 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
         aws-region: 'af-south-1'
+    
+    - name: Bootstrap CDK Environment
+      run: |
+        npx cdk bootstrap aws://$AWS_ACCOUNT_ID/af-south-1
 
     # Deploy CDK Stack
     - name: Deploy CDK Stack
